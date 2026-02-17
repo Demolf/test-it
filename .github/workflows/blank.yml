@@ -1,21 +1,47 @@
-name: Тест чата
+# .github/workflows/ci.yml
+name: CI
 
-on: [push]
+on:
+  push:
+    branches: [ main, master ]  # срабатывает при коммите в main/master
+  pull_request:
+    branches: [ main, master ]
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout кода
+        uses: actions/checkout@v4
 
       - name: Установить Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'pnpm'
+
+      - name: Установить pnpm (глобально)
+        run: npm install -g pnpm
 
       - name: Установить зависимости
-        run: npm install
+        run: pnpm install
 
-      - name: Проверить запуск сервера
-        run: npm run start
+      - name: Проверить наличие server.js
+        run: |
+          if [ ! -f "server.js" ]; then
+            echo "❌ Ошибка: server.js не найден!"
+            exit 1
+          fi
+
+      - name: Запустить сервер (в фоне)
+        run: node server.js &
+        shell: bash
+
+      - name: Подождать запуска сервера
+        run: sleep 5
+
+      - name: Проверить, что сервер работает
+        run: |
+          # Попробуем запросить корень (если express работает)
+          curl --fail http://localhost:3000 || (echo "❌ Сервер не отвечает!" && exit 1)
