@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <title>WebSocket Чат</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        #messages {
+            list-style-type: none;
+            padding: 0;
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        #messages li { padding: 5px 10px; background: #eef; margin-bottom: 5px; border-radius: 5px; }
+        #form { display: flex; gap: 10px; }
+        #input { flex: 1; padding: 10px; }
+        button { padding: 10px 15px; }
+    </style>
+</head>
+<body>
+    <h1>Чат (на чистом WebSocket)</h1>
+    <ul id="messages"></ul>
+    <form id="form">
+        <input id="input" autocomplete="off" placeholder="Введите сообщение..." />
+        <button>Отправить</button>
+    </form>
+
+    <script>
+        // const ws = new WebSocket(`ws://localhost:3000`);
+        // const form = document.getElementById('form');
+        // const input = document.getElementById('input');
+        // const messages = document.getElementById('messages');
+
+        // ws.onopen = () => {
+        //     console.log('Подключено к серверу');
+        // };
+
+        // ws.onmessage = (event) => {
+        //     const item = document.createElement('li');
+        //     item.textContent = event.data;
+        //     messages.appendChild(item);
+        //     messages.scrollTop = messages.scrollHeight;
+        // };
+
+        // form.addEventListener('submit', (e) => {
+        //     e.preventDefault();
+        //     if (input.value) {
+        //         ws.send(input.value);
+        //         input.value = '';
+        //     }
+        // });
+
+        // ws.onclose = () => {
+        //     alert('Соединение закрыто. Обновите страницу.');
+        // };
+    </script>
+</body>
+</html>
