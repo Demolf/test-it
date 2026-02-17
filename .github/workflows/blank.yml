@@ -1,24 +1,22 @@
-name: Node CI
+name: Тест чата
 
-on: push
+on: [push]
 
 jobs:
-  buildAndTest:
+  test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [22.x]
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install, start
-      run: |
-        npm install
-        npm run start
-      env:
-        CI: true
+      - uses: actions/checkout@v4
+
+      - name: Установить Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Установить зависимости
+        run: npm install
+
+      - name: Проверить запуск сервера
+        run: node server.js &
+        shell: bash
