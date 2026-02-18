@@ -70,8 +70,6 @@
       const input = document.getElementById("input");
       const name = document.getElementById("name");
       const messages = document.getElementById("messages");
-      const history = document.getElementById("history");
-      const btnHistory = document.getElementById("btnHistory");
 
       btnHistory.addEventListener("click", (e) => {
         socket.emit("get history", "history");
@@ -105,3 +103,4 @@
     </script>
   </body>
 </html>
+
