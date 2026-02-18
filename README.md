@@ -29,6 +29,7 @@
    git clone https://github.com/Demolf/test-it.git
    cd test-it
    ```
+   или скачайте архив (Download ZIP)
 3. Установите зависимости:
    ```bash
    npm install
