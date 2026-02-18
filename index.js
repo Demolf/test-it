@@ -1,33 +1,14 @@
-require('dotenv').config();
-
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
-const mysql = require("mysql2"); // ← изменили здесь
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+const db = require('./db')
+
 const PORT = 3000;
-
-// Подключение к MySQL
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  ssl: process.env.DB_HOST === 'localhost' ? false : { rejectUnauthorized: true }
-});
-
-// Проверка подключения к БД
-db.connect((err) => {
-  if (err) {
-    console.error("Ошибка подключения к MySQL:", err);
-    return;
-  }
-  console.log("Подключено к MySQL (база: chat_db)");
-});
 
 app.use(express.static("public"));
 
@@ -71,4 +52,5 @@ io.on("connection", (socket) => {
 server.listen(PORT, () => {
   console.log(`Сервер запущен на сайт ${PORT}`);
 });
+
 
