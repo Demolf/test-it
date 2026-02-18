@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
@@ -11,10 +13,11 @@ const PORT = 3000;
 
 // Подключение к MySQL
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "root", // измените, если у вас есть пароль
-  database: "chat_db",
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  ssl: process.env.DB_HOST === 'localhost' ? false : { rejectUnauthorized: true }
 });
 
 // Проверка подключения к БД
@@ -68,3 +71,4 @@ io.on("connection", (socket) => {
 server.listen(PORT, () => {
   console.log(`Сервер запущен на сайт ${PORT}`);
 });
+
