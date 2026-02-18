@@ -24,7 +24,7 @@
 4. Настройте подключение к базе данных в файле `db.js`.
 5. Запустите сервер:
    ```bash
-   npm run start
+   npm start
    ```
    Или в режиме разработки с автоматической перезагрузкой:
    ```bash
@@ -38,4 +38,22 @@
 - `db.js` — конфигурация подключения к базе данных.
 - `public/` — статические файлы (HTML, CSS, JS для клиента).
 - `package.json` — метаданные проекта и зависимости.
+
+## Таблица MySQL
+
+Для работы чата требуется таблица `messages` в базе данных `chat_db`. Создайте её с помощью следующего SQL-запроса:
+
+```sql
+CREATE DATABASE IF NOT EXISTS chat_db;
+USE chat_db;
+
+CREATE TABLE IF NOT EXISTS messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+После создания таблицы убедитесь, что данные в `db.js` (хост, пользователь, пароль) соответствуют вашей конфигурации MySQL.
 
