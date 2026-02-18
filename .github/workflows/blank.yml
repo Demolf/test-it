@@ -19,23 +19,19 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'
-
-      - name: Установить pnpm (глобально)
-        run: npm install -g pnpm
 
       - name: Установить зависимости
-        run: pnpm install
+        run: npm install
 
-      - name: Проверить наличие server.js
+      - name: Проверить наличие index.js
         run: |
-          if [ ! -f "server.js" ]; then
-            echo "❌ Ошибка: server.js не найден!"
+          if [ ! -f "index.js" ]; then
+            echo "❌ Ошибка: index.js не найден!"
             exit 1
           fi
 
       - name: Запустить сервер (в фоне)
-        run: node server.js &
+        run: node index.js &
         shell: bash
 
       - name: Подождать запуска сервера
@@ -44,4 +40,4 @@ jobs:
       - name: Проверить, что сервер работает
         run: |
           # Попробуем запросить корень (если express работает)
-          curl --fail http://localhost:3000 || (echo "❌ Сервер не отвечает!" && exit 1)
+          curl --fail || (echo "❌ Сервер не отвечает!" && exit 1)
