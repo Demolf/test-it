@@ -71,9 +71,6 @@
       const name = document.getElementById("name");
       const messages = document.getElementById("messages");
 
-      btnHistory.addEventListener("click", (e) => {
-        socket.emit("get history", "history");
-      });
 
       form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -103,4 +100,5 @@
     </script>
   </body>
 </html>
+
 
